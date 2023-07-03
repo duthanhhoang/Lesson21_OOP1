@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="Character.js"></script>
+  </head>
+  <body>
+    <h3 id="notice"></h3>
+    <div id="player1">
+      <p id="player1-name"></p>
+      <p id="player1-hp"></p>
+      <button onclick="characterAttack(player1, player2)">Attack</button>
+    </div>
+    <div id="player2">
+      <p id="player2-name"></p>
+      <p id="player2-hp"></p>
+      <button onclick="characterAttack(player2, player1)">Attack</button>
+    </div>
+    <script>
+      let player1 = new Character("Đỉnh BX");
+      let player2 = new Character("Chí Báo");
+
+      function displayAll() {
+        document.getElementById("player1-name").innerHTML = player1.name;
+        document.getElementById("player1-hp").innerHTML = player1.hp;
+        document.getElementById("player2-name").innerHTML = player2.name;
+        document.getElementById("player2-hp").innerHTML = player2.hp;
+      }
+
+      function characterAttack(p1, p2) {
+        p1.attack(p2);
+        document.getElementById("notice").innerHTML = p1.notice;
+        displayAll();
+      }
+
+      const PLAYER1 = 1;
+      const PLAYER2 = 2;
+      let turn = PLAYER1;
+      function autoAttack() {
+        if (turn == PLAYER1) {
+          characterAttack(player1, player2);
+          turn = PLAYER2;
+        } else {
+          characterAttack(player2, player1);
+          turn = PLAYER1;
+        }
+      }
+
+      setInterval(autoAttack, 3000);
+      displayAll();
+    </script>
+  </body>
+</html>
